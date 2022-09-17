@@ -1,0 +1,6 @@
+package com.student.exceptions;
+
+@RestControllerAdvice
+public class StudentExceptionHandler {
+
+}
