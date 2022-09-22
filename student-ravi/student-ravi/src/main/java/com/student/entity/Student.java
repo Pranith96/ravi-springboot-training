@@ -1,30 +1,71 @@
 package com.student.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="student_table")
+@Table(name = "student_table")
 public class Student {
 
 	@Id
-	@Column(name="student_id")
+	@Column(name = "student_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer studentId;
-	@Column(name="student_name")
+	@Column(name = "student_name")
 	private String name;
-	@Column(name="mobile_number")
+	@Column(name = "mobile_number")
 	private String mobileNumber;
-	@Column(name="email_id")
+	@Column(name = "email_id")
 	private String email;
-	@Column(name="login_id", unique = true)//, length = 15, nullable = false, updatable = false)
+	@Column(name = "login_id", unique = true) // , length = 15, nullable = false, updatable = false)
 	private String longId;
-	@Column(name="password")
+	@Column(name = "password")
 	private String password;
+
+	@Enumerated(EnumType.STRING)
+	private Status studentStatus;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "address_id")
+	private Address address;
+
+	@ManyToOne(cascade = CascadeType.ALL, targetEntity = College.class)
+	@JoinColumn(name = "college_id")
+	private College college;
+
+	public Status getStudentStatus() {
+		return studentStatus;
+	}
+
+	public void setStudentStatus(Status studentStatus) {
+		this.studentStatus = studentStatus;
+	}
+
+	public College getCollege() {
+		return college;
+	}
+
+	public void setCollege(College college) {
+		this.college = college;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
 
 	public Integer getStudentId() {
 		return studentId;

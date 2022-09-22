@@ -3,6 +3,7 @@ package com.student.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,6 +24,7 @@ import com.student.service.StudentService;
 @RequestMapping("/student")
 public class StudentController {
 
+	//@Qualifier(value = "service1")
 	@Autowired
 	StudentService service;
 
@@ -31,54 +33,56 @@ public class StudentController {
 		String response = service.addStudent(student);
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
-	
+
 	@GetMapping("/get-all")
-	public ResponseEntity<List<Student>> getStudentList(){
+	public ResponseEntity<List<Student>> getStudentList() {
 		List<Student> response = service.getAllStudents();
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
-	
+
 	@GetMapping("/get/{studentId}")
-	public ResponseEntity<StudentDto> getStudentById(@PathVariable("studentId") Integer studentId){
+	public ResponseEntity<StudentDto> getStudentById(@PathVariable("studentId") Integer studentId) {
 		StudentDto response = service.getStudentById(studentId);
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
-	
 
 	@GetMapping("/get/id")
-	public ResponseEntity<StudentDto> getStudentDetails(@RequestParam("studentId") Integer studentId){
+	public ResponseEntity<StudentDto> getStudentDetails(@RequestParam("studentId") Integer studentId) {
 		StudentDto response = service.getStudentById(studentId);
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
-	
+
 	@GetMapping("/get/name/{name}")
-	public ResponseEntity<List<Student>> getStudentByName(@PathVariable("name") String name){
+	public ResponseEntity<List<Student>> getStudentByName(@PathVariable("name") String name) {
 		List<Student> response = service.getStudentByName(name);
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
-	
+
 	@GetMapping("/get/details/{loginId}/{password}")
-	public ResponseEntity<Student> getStudentByLoginIdAndPassword(@PathVariable("loginId") String loginId, @PathVariable("password") String password){
-		Student response = service.getStudentByLoginIdAndPassword(loginId,password);
+	public ResponseEntity<Student> getStudentByLoginIdAndPassword(@PathVariable("loginId") String loginId,
+			@PathVariable("password") String password) {
+		Student response = service.getStudentByLoginIdAndPassword(loginId, password);
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
-	
+
 	@GetMapping("/get/detail")
-	public ResponseEntity<Student> getStudentByLoginDetails(@RequestParam("loginId") String loginId, @RequestParam("password") String password){
-		Student response = service.getStudentByLoginIdAndPassword(loginId,password);
+	public ResponseEntity<Student> getStudentByLoginDetails(@RequestParam("loginId") String loginId,
+			@RequestParam("password") String password) {
+		Student response = service.getStudentByLoginIdAndPassword(loginId, password);
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
-	
+
 	@PutMapping("/update/name/{name}/{studentId}")
-	public ResponseEntity<String> updateStudentName(@PathVariable("name") String name,@PathVariable("studentId") Integer studentId){
+	public ResponseEntity<String> updateStudentName(@PathVariable("name") String name,
+			@PathVariable("studentId") Integer studentId) {
 		String response = service.updateStudentName(name, studentId);
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
-	
+
 	@DeleteMapping("/delete/{studentId}")
-	public ResponseEntity<String> deleteStudentById(@PathVariable("studentId") Integer studentId){
+	public ResponseEntity<String> deleteStudentById(@PathVariable("studentId") Integer studentId) {
 		String response = service.deleteStudentById(studentId);
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
-	
+
 }

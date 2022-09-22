@@ -20,4 +20,6 @@
     <fullyQualifiedTypeName name="com.student.exceptions.ExceptionResponse"/>
     <fullyQualifiedTypeName name="java.time.LocalDate"/>
     <fullyQualifiedTypeName name="java.time.LocalDateTime"/>
+    <fullyQualifiedTypeName name="org.springframework.context.annotation.Profile"/>
+    <fullyQualifiedTypeName name="springfox.documentation.swagger2.annotations.EnableSwagger2"/>
 </qualifiedTypeNameHistroy>
