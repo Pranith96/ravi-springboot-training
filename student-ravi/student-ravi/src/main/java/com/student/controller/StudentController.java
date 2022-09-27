@@ -3,7 +3,6 @@ package com.student.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,15 +19,22 @@ import com.student.dto.StudentDto;
 import com.student.entity.Student;
 import com.student.service.StudentService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping("/student")
+@Api(value = "api")
 public class StudentController {
 
-	//@Qualifier(value = "service1")
+	//@Qualifier(value = "serv	ice1")
 	@Autowired
 	StudentService service;
 
 	@PostMapping("/save")
+	 @ApiOperation(value = "Student account Creation API",
+     notes = "Please provide all the info for Student account creation",
+     response = Student.class)
 	public ResponseEntity<String> createStudent(@RequestBody Student student) {
 		String response = service.addStudent(student);
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);

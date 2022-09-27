@@ -1,5 +1,8 @@
 package com.student.entity;
 
+import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,17 +12,25 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 @Entity
 @Table(name = "student_table")
-public class Student {
+@ApiModel(description = "Details About the Student Accounts")
+public class Student implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	@Id
 	@Column(name = "student_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@ApiModelProperty(notes = "The Unique StudentId Number")
 	private Integer studentId;
 	@Column(name = "student_name")
 	private String name;
@@ -42,6 +53,19 @@ public class Student {
 	@ManyToOne(cascade = CascadeType.ALL, targetEntity = College.class)
 	@JoinColumn(name = "college_id")
 	private College college;
+
+	@ManyToMany(cascade = CascadeType.ALL, targetEntity = Courses.class)
+	@JoinTable(name = "student_course", joinColumns = { @JoinColumn(name = "student_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "course_id") })
+	private List<Courses> courses;
+
+	public List<Courses> getCourses() {
+		return courses;
+	}
+
+	public void setCourses(List<Courses> courses) {
+		this.courses = courses;
+	}
 
 	public Status getStudentStatus() {
 		return studentStatus;
