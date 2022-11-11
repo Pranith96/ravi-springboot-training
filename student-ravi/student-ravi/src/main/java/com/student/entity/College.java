@@ -11,6 +11,9 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.Data;
+
+@Data
 @Entity
 public class College implements Serializable{
 	
@@ -27,38 +30,5 @@ public class College implements Serializable{
 	@JsonIgnore
 	@OneToMany(mappedBy = "college")
 	private List<Student> students;
-
-	public Integer getCollegeId() {
-		return collegeId;
-	}
-
-	public void setCollegeId(Integer collegeId) {
-		this.collegeId = collegeId;
-	}
-
-	public String getCollegeName() {
-		return collegeName;
-	}
-
-	public void setCollegeName(String collegeName) {
-		this.collegeName = collegeName;
-	}
-
-	public String getCollegeCode() {
-		return collegeCode;
-	}
-
-	public void setCollegeCode(String collegeCode) {
-		this.collegeCode = collegeCode;
-	}
-
-	public List<Student> getStudents() {
-		return students;
-	}
-
-	public void setStudents(List<Student> students) {
-		this.students = students;
-	}
-
 	
 }

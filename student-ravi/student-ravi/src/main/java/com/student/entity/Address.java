@@ -9,6 +9,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+import lombok.Data;
+
+//@Getter
+//@Setter
+//@AllArgsConstructor
+//@NoArgsConstructor
+//@ToString
+//@EqualsAndHashCode
+
+@Data
 @Entity
 public class Address implements Serializable {
 
@@ -26,45 +36,5 @@ public class Address implements Serializable {
 	@OneToOne
 	@JoinColumn(name = "student_id")
 	private Student student;
-
-	public Student getStudent() {
-		return student;
-	}
-
-	public void setStudent(Student student) {
-		this.student = student;
-	}
-
-	public Integer getAddressId() {
-		return addressId;
-	}
-
-	public void setAddressId(Integer addressId) {
-		this.addressId = addressId;
-	}
-
-	public String getPlotNo() {
-		return plotNo;
-	}
-
-	public void setPlotNo(String plotNo) {
-		this.plotNo = plotNo;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getState() {
-		return state;
-	}
-
-	public void setState(String state) {
-		this.state = state;
-	}
-
+	
 }

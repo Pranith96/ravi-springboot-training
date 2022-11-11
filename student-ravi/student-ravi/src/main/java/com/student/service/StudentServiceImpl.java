@@ -3,6 +3,8 @@ package com.student.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
@@ -15,12 +17,15 @@ import com.student.entity.Student;
 import com.student.exceptions.StudentNotFoundException;
 import com.student.repository.StudentRepository;
 
+
 @Primary
 @Service(value = "service1")
 @Transactional
 @Profile(value = { "dev", "qa", "prod", "local" })
 public class StudentServiceImpl implements StudentService {
 
+	Logger log = LoggerFactory.getLogger(StudentServiceImpl.class);
+	
 	@Autowired
 	StudentRepository repository;
 
@@ -28,7 +33,9 @@ public class StudentServiceImpl implements StudentService {
 	public String addStudent(Student student) {
 		student.getAddress().setStudent(student);
 		student.setStudentStatus(Status.ACTIVE);
+		log.info("Before calling repo");
 		Student response = repository.save(student);
+		log.info("after calling repo");
 		if (response == null) {
 			return "Data is not saved";
 		}
@@ -37,7 +44,9 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public List<Student> getAllStudents() {
+		log.info("Before calling repo for find all");
 		List<Student> response = repository.findAll();
+		log.info("after calling repo for find all");
 		if (response == null || response.isEmpty()) {
 			throw new RuntimeException("Data is Empty");
 		}
@@ -46,15 +55,23 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public StudentDto getStudentById(Integer studentId) {
+		log.info("Before calling repo for find by id");
 		Optional<Student> response = repository.findById(studentId);
+		log.info("after calling repo for find by id: {}" ,studentId);
 		if (!response.isPresent()) {
 			throw new StudentNotFoundException("Data is not found");
 		}
 
-		StudentDto dto = new StudentDto();
-		dto.setName(response.get().getName());
-		dto.setEmail(response.get().getEmail());
-		dto.setMobileNumber(response.get().getMobileNumber());
+//		StudentDto dto = new StudentDto();
+//		dto.setName(response.get().getName());
+//		dto.setEmail(response.get().getEmail());
+//		dto.setMobileNumber(response.get().getMobileNumber());
+		
+		StudentDto dto = StudentDto.builder()
+				.name(response.get().getName())
+				.email(response.get().getEmail())
+				.mobileNumber(response.get().getMobileNumber())
+				.build();
 		return dto;
 	}
 

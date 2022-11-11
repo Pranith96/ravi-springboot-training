@@ -20,7 +20,9 @@ import javax.persistence.Table;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "student_table")
 @ApiModel(description = "Details About the Student Accounts")
@@ -58,85 +60,4 @@ public class Student implements Serializable {
 	@JoinTable(name = "student_course", joinColumns = { @JoinColumn(name = "student_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "course_id") })
 	private List<Courses> courses;
-
-	public List<Courses> getCourses() {
-		return courses;
-	}
-
-	public void setCourses(List<Courses> courses) {
-		this.courses = courses;
-	}
-
-	public Status getStudentStatus() {
-		return studentStatus;
-	}
-
-	public void setStudentStatus(Status studentStatus) {
-		this.studentStatus = studentStatus;
-	}
-
-	public College getCollege() {
-		return college;
-	}
-
-	public void setCollege(College college) {
-		this.college = college;
-	}
-
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
-	}
-
-	public Integer getStudentId() {
-		return studentId;
-	}
-
-	public void setStudentId(Integer studentId) {
-		this.studentId = studentId;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getMobileNumber() {
-		return mobileNumber;
-	}
-
-	public void setMobileNumber(String mobileNumber) {
-		this.mobileNumber = mobileNumber;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getLongId() {
-		return longId;
-	}
-
-	public void setLongId(String longId) {
-		this.longId = longId;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 }

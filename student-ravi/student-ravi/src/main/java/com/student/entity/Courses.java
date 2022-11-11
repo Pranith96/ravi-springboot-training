@@ -11,6 +11,9 @@ import javax.persistence.ManyToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.Data;
+
+@Data
 @Entity
 public class Courses implements Serializable {
 
@@ -30,46 +33,5 @@ public class Courses implements Serializable {
 	@JsonIgnore
 	@ManyToMany(mappedBy = "courses")
 	private List<Student> student;
-
-	
-	public List<Student> getStudent() {
-		return student;
-	}
-
-	public void setStudent(List<Student> student) {
-		this.student = student;
-	}
-
-	public Integer getCourseId() {
-		return courseId;
-	}
-
-	public void setCourseId(Integer courseId) {
-		this.courseId = courseId;
-	}
-
-	public String getCourseName() {
-		return courseName;
-	}
-
-	public void setCourseName(String courseName) {
-		this.courseName = courseName;
-	}
-
-	public float getCost() {
-		return cost;
-	}
-
-	public void setCost(float cost) {
-		this.cost = cost;
-	}
-
-	public String getAuthor() {
-		return author;
-	}
-
-	public void setAuthor(String author) {
-		this.author = author;
-	}
 
 }
